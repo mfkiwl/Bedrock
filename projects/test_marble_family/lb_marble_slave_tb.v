@@ -33,12 +33,12 @@ mem_gateway #(.n_lat(n_lat), .enable_bursts(1)) dut(.clk(clk),
 );
 
 // TWI bus itself
-wire TWI_SCL;  tri1 TWI_SDA, TWI_INT, TWI_RST;
+tri1 TWI_SCL, TWI_SDA, TWI_INT, TWI_RST;
 wire [2:0] dum_scl;
 tri1 [2:0] dum_sda;
 
 // Should mostly match marble_base.v, some outputs ignored
-lb_marble_slave #(.twi_q0(4), .twi_q1(0), .twi_q2(2), .led_cw(6)) slave(
+lb_marble_slave #(.USE_I2CBRIDGE(1), .twi_q0(4), .twi_q1(0), .twi_q2(2), .led_cw(6)) slave(
 	.clk(clk), .addr(addr),
 	.control_strobe(control_strobe), .control_rd(control_rd),
 	.data_out(data_out), .data_in(data_in),
