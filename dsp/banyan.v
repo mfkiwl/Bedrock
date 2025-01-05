@@ -1,3 +1,5 @@
+`timescale 1ns / 1ns
+
 // permute np ports, each dw bits wide, using rl levels of 2-way mux
 //  np must be 2**rl
 //
@@ -27,14 +29,15 @@
 // The implementation is done with recursive instantiation of itself.
 // The capability of doing recursion in Verilog is explicitly acknowledged
 // and blessed by the Verilog-2005 standard, and it works without problem
-// for me in Icarus Verilog, Xilinx XST, and Xilinx Vivado.
+// for me in Icarus Verilog, Verilator, Xilinx XST, and Xilinx Vivado.
 //
 // An N=8 dw=16 instantiation in Kintex speed grade 2 seems capable of
 // running at ridiculous clock rates (over 550 MHz?), consuming on the
 // order of 430 LUT.  The data muxes alone ought to use 384 LUT outputs.
 // Even a lowly Spartan-6 should manage 160 MHz, using about 226 LUT
 // (437 LUT outputs).
-// Not yet tested on hardware.
+//
+// Used successfully on hardware since 2016.
 
 module banyan #(
 	parameter dw=16,  // data width
@@ -59,11 +62,12 @@ wire any_lower = |mask_lower;
 
 // The below statement creates a Ripple-Carry chain of xors with the initial
 // bit being fed from the right (a 1'b0). The in and out refer to the circuit
+// verilator lint_save
 // verilator lint_off UNOPTFLAT
 wire [M:0] imbalance_in;
 wire [M-1:0] imbalance_out = imbalance_in ^ mask_upper ^ mask_lower;
 assign imbalance_in = {imbalance_out,1'b0};
-// verilator lint_on UNOPTFLAT
+// verilator lint_restore
 
 // Priority set sources to Lower sinks when in Balance.
 // If currently NOT imbalanced, and lower is 0 and upper 1, Flip and route to Lower

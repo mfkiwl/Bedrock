@@ -18,7 +18,7 @@ comms_top_run:
     - comms_top
   script:
     - cd projects/comms_top
-    - git clone --depth 1 --branch v0.591_unstable https://gitlab.com/qf2-pre/users.git qf2_users
+    - sh qf2_070_3_setup.sh
     - make QF2_TOOLS=qf2_users QF2_IP=192.168.1.30 hwload && sleep 8 && make hwtest
 
 gige_sfp_ac701:
@@ -40,4 +40,4 @@ gige_sfp_ac701_run:
   dependencies:
     - gige_sfp_ac701
   script:
-    - cd projects/comms_top/gige_eth && make hwload_ac701 && make hwtest_ac701
+    - cd projects/comms_top/gige_eth && make hwload_ac701 SERIAL_NUM_OPT="-s 210203356870" && sleep 7 && make hwtest_ac701

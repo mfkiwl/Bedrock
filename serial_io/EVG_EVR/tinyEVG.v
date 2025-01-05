@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright (c) 2106 Osprey DCS
+// Copyright (c) 2016 Osprey DCS
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ module tinyEVG #(
     // Interval for 'heartbeat' event
     input  wire              [31:0] heartbeatInterval,
 
-    // Arbitrary event reguests
+    // Arbitrary event requests
     input  wire               [7:0] distributedBus,
     input  wire               [7:0] eventCode,
     input  wire                     eventStrobe,
@@ -62,12 +62,16 @@ localparam EVCODE_K28_5          = 8'hBC;
 
 localparam PPS_DEBOUNCE_TIMER_RELOAD = ((EVG_CLOCK_RATE/100000))-1;
 reg [$clog2(PPS_DEBOUNCE_TIMER_RELOAD+1)-1:0]ppsDebounceTimer = PPS_DEBOUNCE_TIMER_RELOAD;
-(*ASYNC_REG = "true"*) reg ppsMarker_m = 0;
-reg ppsMarker = 0, ppsMarker_delayed = 0, ppsMatch = 0;
+
+// Move ppsMarker_a to our clock domain
+wire ppsMarker;
+reg_tech_cdc ppsMarker_cdc(.I(ppsMarker_a), .C(evgTxClk), .O(ppsMarker));
+
+reg ppsMarker_delayed = 0, ppsMatch = 0;
 reg [31:0] heartbeatCounter = EVG_CLOCK_RATE - 1;
 (* mark_debug = DEBUG *) reg heartbeatRequest = 0;
 
-// Event codes and commas appear only in least signficant byte
+// Event codes and commas appear only in least significant byte
 reg [7:0] txCode;
 reg       txCodeIsK = 0;
 assign evgTxWord = { distributedBus, txCode };
@@ -95,8 +99,6 @@ always @(posedge evgTxClk) begin
     end
 
     // Require PPS marker to be low for 10 us before detecting a rising edge
-    ppsMarker_m <= ppsMarker_a;
-    ppsMarker   <= ppsMarker_m;
     if (ppsMarker) begin
         if (!ppsMarker_delayed) begin
             ppsToggle <= !ppsToggle;
@@ -132,7 +134,7 @@ always @(posedge evgTxClk) begin
         secondsBitcount <= SECONDS_WIDTH;
         secondsGap <= ~0;
     end
-    // POSIX seconds shift register has Lowest priorty
+    // POSIX seconds shift register has Lowest priority
     else if ((secondsBitcount != 0) && (secondsGap == 0)) begin
         secondsGap <= ~0;
         secondsBitcount <= secondsBitcount - 1;

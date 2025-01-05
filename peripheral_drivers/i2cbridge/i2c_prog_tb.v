@@ -15,8 +15,13 @@ initial begin
 		clk=1; #10;
 	end
 	$display("%s", worked==3 ? "PASS" : "FAIL");
-	if (worked != 3) $stop();
-	$finish();
+	if (worked != 3) begin
+		$display("FAIL");
+		$stop(0);
+	end else begin
+		$display("PASS");
+		$finish(0);
+	end
 end
 
 // Pacing counter for bit engine
@@ -90,7 +95,7 @@ i2c_bit bit (.clk(clk),
 	.scl_o(scl_o), .sda_o(sda_o), .sda_v(sda_v), .sda_h(sda_h)
 );
 
-// Simulated slave hardare
+// Simulated slave hardware
 i2c_slave_model #(.I2C_ADR(SADR), .debug(0)) slave (.scl(scl_v), .sda(sda_v));
 
 // Check of results

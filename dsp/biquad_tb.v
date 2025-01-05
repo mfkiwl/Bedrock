@@ -1,4 +1,4 @@
-`timescale 1 ns / 1ns
+`timescale 1ns / 1ns
 
 module biquad_tb;
 
@@ -45,8 +45,10 @@ integer xCheck, x, xOld;
 integer i;
 
 initial begin
-    $dumpfile("biquad_tb.lxt");
-    $dumpvars(0, biquad_tb);
+    if ($test$plusargs("vcd")) begin
+        $dumpfile("biquad.vcd");
+        $dumpvars(4,biquad_tb);
+    end
     #40;
 
     $display("Unity gain");
@@ -123,8 +125,13 @@ initial begin
     end
 
     #100;
-    $display("%s",  pass ? "PASS" : "FAIL");
-    $finish;
+    if (pass) begin
+      $display("PASS");
+      $finish(0);
+    end else begin
+      $display("FAIL");
+      $stop(0);
+    end
 end
 
 task setCoefficients;

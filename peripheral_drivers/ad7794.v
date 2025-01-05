@@ -1,4 +1,4 @@
-module ad7794 #(parameter DEBUG="true",parameter ADDR_WIDTH=8,parameter DATA_WIDTH=24,parameter SPIMODE="passthrough") (
+module ad7794 #(parameter ADDR_WIDTH=8,parameter DATA_WIDTH=24,parameter SPIMODE="passthrough") (
 	output                  CLK,
 	output                  CS,
 	output                  DIN,
@@ -6,6 +6,7 @@ module ad7794 #(parameter DEBUG="true",parameter ADDR_WIDTH=8,parameter DATA_WID
 	output                  SCLK,
 	input                   clkin,
 	input                   spi_start,
+	output                  spi_busy,  // For handshaking; can be ignored
 	input [ADDR_WIDTH-1:0]  spi_addr,
 	input                   spi_read,
 	input [DATA_WIDTH-1:0]  spi_data,
@@ -30,21 +31,21 @@ module ad7794 #(parameter DEBUG="true",parameter ADDR_WIDTH=8,parameter DATA_WID
 wire sclk_7794, mosi_7794;
 wire miso_7794, ss_7794;
 generate
-if (SPIMODE=="passthrough") begin
+if (SPIMODE=="passthrough") begin: passthrough
 	assign SCLK = sclk_in;
 	assign DIN = mosi_in;
 	assign CS = ss_in;
 	assign miso_out = DOUT_RDY;
 	assign CLK = adcclk;
 end
-else if (SPIMODE=="chain") begin
+else if (SPIMODE=="chain") begin: no_passthrough
 	assign SCLK = spi_ssb_in ? sclk_7794 : sclk_in;
 	assign DIN = spi_ssb_in ? mosi_7794 : mosi_in;
 	assign CS = ss_7794;
 	assign miso_7794 = DOUT_RDY;
 	assign CLK = adcclk;
 end
-else if (SPIMODE=="standalone") begin
+else if (SPIMODE=="standalone") begin: standalone
 	assign SCLK = sclk_7794;
 	assign DIN = mosi_7794;
 	assign CS = ss_7794;
@@ -55,10 +56,10 @@ endgenerate
 
 wire start_7794 = spi_start;
 assign spi_ssb_out = spi_ssb_in & CS;
-spi_master #(.TSCKHALF(16), .ADDR_WIDTH(8), .DATA_WIDTH(24), .SCK_RISING_SHIFT(0), .DEBUG(DEBUG))
+spi_master #(.TSCKHALF(16), .ADDR_WIDTH(8), .DATA_WIDTH(24), .SCK_RISING_SHIFT(0))
 ad7794_spi (
 	.cs(ss_7794), .sck(sclk_7794), .sdi(mosi_7794), .sdo(miso_7794),
-	.clk(clkin), .spi_start(start_7794), .spi_read(spi_read),
+	.clk(clkin), .spi_start(start_7794), .spi_busy(spi_busy), .spi_read(spi_read),
 	.spi_addr(spi_addr), .spi_data(spi_data), .sdo_addr(sdo_addr),
 	.spi_rdbk(spi_rdbk), .spi_ready(spi_ready), .sdio_as_sdo(sdio_as_sdo)
 );

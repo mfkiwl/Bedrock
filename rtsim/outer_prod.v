@@ -2,7 +2,7 @@
 
 // Outer Product
 // Takes a single value x, and multiplies it by a constant vector stored
-// in local-bus-writable memory.  The rsult is time-multiplexed x*B.
+// in local-bus-writable memory.  The result is time-multiplexed x*B.
 
 // The input x can be continually varying; this module will take a snapshot
 // of it at the right time so that the whole output vector comes from a
@@ -15,8 +15,10 @@ module outer_prod(
 	input start,
 	input signed [17:0] x,
 	// Local Bus
+	(* external *)
 	input signed [17:0] k_out,  // external
 	// 9 should be pcw-1
+	(* external *)
 	output [9:0] k_out_addr,  // external
 	output signed [17:0] result
 );

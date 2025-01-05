@@ -1,10 +1,10 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 
 // ------------------------------------
 // QGTP_COMMON_WRAP.v
-// Module declaration of 4 GTP Commmon primitive wrappers, q{0,1,2,3}_gtp_common_wrap
+// Module declaration of 4 GTP Common primitive wrappers, q{0,1,2,3}_gtp_common_wrap
 // The body for each module is `included from qgtp_common_wrap_stub.vh, which
-// uses globaly set defines to generate the correct per-quad configuration
+// uses globally set defines to generate the correct per-quad configuration
 // ------------------------------------
 `include "qgtp_pack.vh"
 
@@ -85,4 +85,3 @@ module qgtp_common_wrap (
 endmodule
 
 `endif // SIMULATE
-

@@ -34,14 +34,14 @@ TODO: Integrate into Makefile/CI
 
 # Architecture
 
-`comms_top.v` consists of an Ethernet to Local Bus bridge running over a Fiber link at 1.25 GBaud
-and a ChitChat link also routed through a Fiber link at 2.5 GBaud. Limited test-pattern
+`comms_top.v` consists of an Ethernet to Local Bus bridge running over a Fiber link at 1.25 GBd
+and a ChitChat link also routed through a Fiber link at 2.5 GBd. Limited test-pattern
 generation is provided, with the Ethernet/Local Bus guaranteeing the interface with the Host.
 
 ## Ethernet and Local Bus
 
 `eth_gtx_bridge.v` combines packet Badger with PCS/PMA logic and a GTX interface. This module
-perfoms its own 8b/10b line coding and, as such, outputs 20-bits of raw data to the GTX.
+performs its own 8b/10b line coding and, as such, outputs 20-bits of raw data to the GTX.
 
 Packet Badger is clocked at 125 MHz, while the GTX interface is clocked at 62.5 MHz.
 Data width/rate conversion is performed within `eth_gtx_bridge.v`.

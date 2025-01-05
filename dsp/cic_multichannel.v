@@ -25,8 +25,8 @@
        | +-----+   +-^-+                |    |
        |             |                  |    |
        +-------------------------------------+
-                     |          |
-          cic_sample +          + cc_sample
+                     |                  |
+          cic_sample +                  + cc_sample
 */
 
 module cic_multichannel #(
@@ -46,8 +46,8 @@ module cic_multichannel #(
    parameter cc_halfband=1,
    parameter cc_use_delay=0,  // Match pipeline length of filt_halfband=1
    parameter cc_shift_base=0, // Bits to discard from previous acc step
-   parameter cc_shift_wi=4)
-(
+   parameter cc_shift_wi=4
+) (
    // Incoming stream
    input                       clk,
    input                       reset,
@@ -138,7 +138,7 @@ module cic_multichannel #(
    assign di_sr_out  = sr_out_shift;
 
    // ------
-   // Cascaded diferentiator and post-filter
+   // Cascaded differentiator and post-filter
    // ------
 `ifdef SIMULATE
    // Enforces correct parameter settings
@@ -170,4 +170,3 @@ module cic_multichannel #(
    );
 
 endmodule
-

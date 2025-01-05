@@ -21,13 +21,14 @@ module gmii_link(
 	input an_bypass,  // disables lacr transmission for autonegotiation
 	output operate,   // (GTX_CLK domain) tells upper levels we're ready to transmit
 	output [15:0] lacr_rx,  // (RX_CLK domain) layering violation
-	output [6:0] an_status
+	output [8:0] an_status
 );
 
 //New internal wires removed from the module interface (error signals from 8b10b enc/dec)
 wire rx_err_code, rx_err_rdisp;
 
 parameter DELAY=1250000;  // see negotiate.v
+parameter ENC_DISPINIT=1;
 
 reg rx_rst=1, tx_rst=1;
 always @(posedge RX_CLK) rx_rst<=0;
@@ -38,7 +39,7 @@ wire [7:0] tx_odata;
 wire tx_is_k;
 wire [15:0] lacr_out;
 wire lacr_send;
-reg enc_dispin;
+reg enc_dispin=ENC_DISPINIT;
 wire enc_dispout;
 ep_tx_pcs tx(.clk(GTX_CLK), .rst(tx_rst),
 	.tx_data_i(TXD),
@@ -79,7 +80,7 @@ ep_rx_pcs rx(.clk(RX_CLK), .rst(rx_rst),
 	.lacr_rx_val(lacr_rx_val)
 );
 
-reg dec_dispin;
+reg dec_dispin=0;
 wire dec_dispout;
 
 always @(posedge RX_CLK) dec_dispin <= dec_dispout & ~rx_rst;

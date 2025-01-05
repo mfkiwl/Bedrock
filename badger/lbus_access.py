@@ -12,10 +12,11 @@ be32 = numpy.dtype('>u4')
 
 
 class lbus_access:
-    def __init__(self, host, timeout=1.02, port=803, force_burst=False, allow_burst=True):
+    def __init__(self, host, timeout=1.02, port=803, force_burst=False, allow_burst=True, verbose=False):
         self.dest = (host, int(port))
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
         self.sock.settimeout(timeout)
+        self.verbose = verbose
         if force_burst:
             self.burst_avail = True
         elif allow_burst:
@@ -23,7 +24,7 @@ class lbus_access:
         else:
             self.burst_avail = False
 
-    def _burst_avail(self,):
+    def _burst_avail(self):
         """Determines if device supports block-transfer/repeat-count
         """
         # TODO: Extract device capabilities automatically
@@ -46,7 +47,7 @@ class lbus_access:
         msg[12] = 0x10000002  # pad / read 2
         msg[13] = 0xa5a5a5a5  # pad
 
-        tosend = msg.tostring()
+        tosend = msg.tobytes()
         # print("%s Send (%d) %s", self.dest, len(tosend), binascii.hexlify(tosend))
         self.sock.sendto(tosend, self.dest)
         if True:
@@ -59,13 +60,16 @@ class lbus_access:
                 r1 = reply[5]
                 r2 = reply[3]
                 if msg[8] == reply[8] and r1 == reply[9] and msg[12] == reply[12] and r2 == reply[13]:
-                    print("Seems to be no-burst")
+                    if self.verbose:
+                        print("Seems to be no-burst")
                     return False
                 elif r1 == reply[8] and r2 == reply[9] and r1 == reply[12] and r2 == reply[13]:
-                    print("Seems to be burst")
+                    if self.verbose:
+                        print("Seems to be burst")
                     return True
                 else:
-                    print("Burst autodetect failed")
+                    if self.verbose:
+                        print("Burst autodetect failed")
                     return False
                 # for jx, x in enumerate(reply):
                 #    print("%2d %8.8x" % (jx, x))
@@ -102,7 +106,7 @@ class lbus_access:
             for i, V in enumerate(values, 4):
                 msg[i] = V or 0
 
-        tosend = msg.tostring()
+        tosend = msg.tobytes()
         if False:
             mm = ".".join(["%8.8x" % x for x in msg])
             print("%s Send (%d) %s" % (self.dest, len(tosend), mm))

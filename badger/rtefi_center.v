@@ -12,7 +12,32 @@
 // The several steps have instance names starting with a through e
 // (a_scan through e_crc).
 //
-module rtefi_center(
+module rtefi_center #(
+	parameter paw = 11,  // packet (memory) address width, nominal 11
+	parameter n_lat = 3,  // latency of client pipeline
+	parameter mac_aw = 10,  // sets size (in 16-bit words) of DPRAM in Tx MAC
+	parameter handle_arp = 1,
+	parameter handle_icmp = 1,
+	// The following parameters set the synthesis-time default, but all
+	// can be overridden at run-time using the configuration port.
+	// UDP ports 0 through 7 represent the index given in udp_sel.
+	// While udp_port_cam.v is written parameterized, we limit it to
+	// three bits and 8 ports for timing reasons.  Port 0 is internally
+	// implemented as echo; the rest will be user-defined via synthesis-time
+	// plug-ins.  Generally the UDP port numbers should be "well known",
+	// but the case can be made to have them run-time override-able (without
+	// resynthesizing) to help cope with unexpected network issues.
+	parameter [31:0] ip = {8'd192, 8'd168, 8'd7, 8'd4},  // 192.168.7.4
+	parameter [47:0] mac = 48'h12555500012d,
+	parameter udp_port0 = 7,
+	parameter udp_port1 = 801,
+	parameter udp_port2 = 802,
+	parameter udp_port3 = 803,
+	parameter udp_port4 = 0,
+	parameter udp_port5 = 0,
+	parameter udp_port6 = 0,
+	parameter udp_port7 = 0
+) (
 	// GMII Input (Rx)
 	input rx_clk,
 	input [7:0] rxd,
@@ -69,31 +94,6 @@ module rtefi_center(
 	output in_use
 );
 
-parameter paw = 11;  // packet (memory) address width, nominal 11
-parameter n_lat = 3;  // latency of client pipeline
-parameter mac_aw = 10;  // sets size (in 16-bit words) of DPRAM in Tx MAC
-parameter handle_arp = 1;
-parameter handle_icmp = 1;
-// The following parameters set the synthesis-time default, but all
-// can be overridden at run-time using the configuration port.
-// UDP ports 0 through 7 represent the index given in udp_sel.
-// While udp_port_cam.v is written parameterized, we limit it to
-// three bits and 8 ports for timing reasons.  Port 0 is internally
-// implemented as echo; the rest will be user-defined via synthesis-time
-// plug-ins.  Generally the UDP port numbers should be "well known",
-// but the case can be made to have them run-time override-able (without
-// resynthesizing) to help cope with unexpected network issues.
-parameter [31:0] ip = {8'd192, 8'd168, 8'd7, 8'd4};  // 192.168.7.4
-parameter [47:0] mac = 48'h12555500012d;
-parameter udp_port0 = 7;
-parameter udp_port1 = 801;
-parameter udp_port2 = 802;
-parameter udp_port3 = 803;
-parameter udp_port4 = 0;
-parameter udp_port5 = 0;
-parameter udp_port6 = 0;
-parameter udp_port7 = 0;
-
 // Overhead: make sure the tools can create an IOB on all GMII inputs
 reg [7:0] eth_in_r=0;
 reg eth_in_s_r=0, eth_in_e_r=0;
@@ -105,7 +105,7 @@ end
 
 // First real step: scan the input packet
 wire [3:0] ip_a;  reg [7:0] ip_d=0;  // MAC/IP config, Rx side
-wire [3:0] pno_a; reg [7:0] pno_d;  // UDP port numbers
+wire [3:0] pno_a; reg [7:0] pno_d=0;  // UDP port numbers
 wire [7:0] sdata;
 wire scanner_busy;
 wire sdata_s, sdata_l;
@@ -123,6 +123,9 @@ scanner #(.handle_arp(handle_arp), .handle_icmp(handle_icmp)) a_scan(
 );
 assign rx_mac_status_d = status_vec;
 assign rx_mac_status_s = status_valid;
+`ifdef SIMULATE
+// always @(negedge rx_clk) if (status_valid) $display("Rx scanner status %x", status_vec);
+`endif
 
 // Second step: create data flow to DPRAM
 wire [paw-1:0] pbuf_a_rx, gray_state;
@@ -142,10 +145,7 @@ assign ibadge_data = pbuf_din;
 // 1 MTU DPRAM; note the ninth bit used to mark Start of Frame.
 // Also note the lack of a write-enable, just write every cycle.
 reg [8:0] pbuf[0:(1<<paw)-1];
-reg [8:0] pbuf_out;
-`ifndef YOSYS
-initial pbuf_out=0;
-`endif
+reg [8:0] pbuf_out=0;
 wire [paw-1:0] mem_a2;  // see below
 always @(posedge rx_clk) pbuf[pbuf_a_rx] <= pbuf_din;
 always @(posedge tx_clk) pbuf_out <= pbuf[mem_a2];
@@ -191,7 +191,7 @@ assign idata = eth_data_out;
 localparam precog_latency = (1<<paw) - p_offset + 4 + n_lat;
 wire [7:0] tx_mac_data;
 wire tx_mac_strobe_s, tx_mac_strobe_l;
-generate if (mac_aw > 1) begin: mac_b
+generate if (mac_aw > 1) begin : mac_b
     mac_subset #(
 	.mac_aw(mac_aw),
 	.latency(precog_latency)
@@ -207,7 +207,7 @@ generate if (mac_aw > 1) begin: mac_b
 	.strobe_s(tx_mac_strobe_s),
 	.strobe_l(tx_mac_strobe_l)
     );
-end else begin
+end else begin : no_mac_b
 	assign tx_mac_strobe_s = 0;
 	assign tx_mac_strobe_l = 0;
 	assign tx_mac_data = 0;

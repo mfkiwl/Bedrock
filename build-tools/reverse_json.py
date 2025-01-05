@@ -1,9 +1,9 @@
 '''
-Rummage through input file and construct a JSON file representing
+Rummage through input (Verilog) file and construct a JSON file representing
 most of the read address space.  Depends on stylized Verilog representation
 of the first stage of the (scalar) read data multiplexer, using reg_bank_n
 pipeline registers.  Attempts to deduce signed-ness and bit width for each
-entry by peeking at wire declarations in the Verilog.
+entry by peeking at wire, reg, and input declarations in the Verilog.
 '''
 import re
 from sys import stderr, argv
@@ -14,6 +14,7 @@ wire_info = {}
 addr_found = {}
 name_found = {}
 fail = 0
+verbose = False  # can we have a command-line switch to control this?
 
 # Bugs:
 #   brittle to variations in Verilog code formatting
@@ -40,10 +41,9 @@ def ponder_int(s):
                 # stderr.write('p, pv, o = %s, %d, %d\n' % (p, pv, o))
                 return pv - o
             else:
-                stderr.write('ERROR: parameter %s not found?\n' % p)
+                stderr.write('ERROR: parameter %s not found? (%s)\n' % (p, s))
         else:
-            stderr.write("ERROR: Couldn't" + ' understand "%s", using 31\n' %
-                         s)
+            stderr.write("ERROR: Couldn't" + ' understand "%s", using 31\n' % s)
     return r
 
 
@@ -97,42 +97,85 @@ print("{")
 sl = []
 param_db = {}
 address_offset = 0
+bank_state = None  # keep track of current block
+line_no = 0
 for line in f.read().split('\n'):
+    line_no += 1
+    ehead = 'ERROR:%s:%d:' % (argv[1], line_no)  # just in case
     if "reverse_json_offset" in line:
         m1 = re.search(r"\s*//\s*reverse_json_offset\s*:\s*(\d+)\s*", line)
         if m1:
             address_offset = int(m1.group(1))
+    # All other directives are ignored if they're on a pure // comment line.
+    # Yes, we can still get confused by /* */ comments, `ifdef, and generate.
+    if re.search(r"^\s*//", line):
+        continue
+    #
     if "4'h" in line and ": reg_bank_" in line:
         m1 = re.search(r"4'h(\w):\s*reg_bank_(\w)\s*<=\s*(\S+);", line)
         if m1:
             alias = None
             m1a = re.search(r";\s*//\s*alias:\s*(\w+)", line)
             if m1a:
-                # stderr.write('INFO: alias "%s"\n' % m1a.group(1))
+                if verbose:
+                    stderr.write('INFO: alias "%s"\n' % m1a.group(1))
                 alias = m1a.group(1)
+            tbank = m1.group(2)
+            if bank_state == "=armed=":
+                bank_state = tbank
+            if bank_state != tbank:
+                stderr.write(ehead + ' bank %s assignment found in bank %s stanza\n' % (tbank, bank_state))
+                fail = 1
             sl += [rprint(m1.group, line, alias, address_offset)]
         else:
             stderr.write("WARNING: Surprising regexp failure: %s\n" % line)
+    if "default" in line and ": reg_bank_" in line:
+        m1 = re.search(r"default:\s*reg_bank_(\w)\s*<=\s*32'h", line)
+        if m1:
+            if verbose:
+                stderr.write('INFO: default %s\n' % line)
+            tbank = m1.group(1)
+            if bank_state != tbank:
+                stderr.write(ehead + ' bank %s assignment found in bank %s stanza\n' % (tbank, bank_state))
+                fail = 1
     if "wire" in line:
-        m2 = re.search(r"wire\s+(signed)?\s*\[([^:]+):0\]\s*(\w+)", line)
+        m2 = re.search(r"\bwire\s+(signed)?\s*\[([^:]+):0\]\s*(\w+)", line)
         if m2:
             memorize(m2.group)
-    if "reg " in line:
-        m2 = re.search(r"reg\s+(signed)?\s*\[([^:]+):0\]\s*(\w+)", line)
+    if "reg" in line:
+        m2 = re.search(r"\breg\s+(signed)?\s*\[([^:]+):0\]\s*(\w+)", line)
         if m2:
             memorize(m2.group)
-    if any(x in line for x in ["parameter ", "localparam "]):
-        m3 = re.search(r"(?:parameter|localparam)\s+(\w+)\s*=\s*(\d+);", line)
+    if "input" in line:
+        m2 = re.search(r"\binput\s+(signed)?\s*\[([^:]+):0\]\s*(\w+)", line)
+        if m2:
+            memorize(m2.group)
+    if "output" in line:
+        m2 = re.search(r"\boutput\s+(signed)?\s*\[([^:]+):0\]\s*(\w+)", line)
+        if m2:
+            memorize(m2.group)
+    if any(x in line for x in ["parameter", "localparam"]):
+        # This logic can handle parameter as a statement, or in the header of a module.
+        # It does get tripped up by the _last_ parameter of a module,
+        # that doesn't have a trailing comma.
+        m3 = re.search(r"\b(?:parameter|localparam)\s+(\w+)\s*=\s*(\d+)[;,]", line)
         if m3:
             p, v = m3.group(1), int(m3.group(2))
             param_db[p] = v
-            # stderr.write('INFO: found parameter "%s" with value %d\n' % (p, v))
-    if "localparam " in line:
-        m3 = re.search(r"localparam\s+(\w+)\s*=\s*(\d+);", line)
+            if verbose:
+                stderr.write('INFO: found parameter "%s" with value %d\n' % (p, v))
+        m3 = re.search(r"\b(?:parameter|localparam)\s+integer\s+(\w+)\s*=\s*(\d+)[;,]", line)
         if m3:
             p, v = m3.group(1), int(m3.group(2))
             param_db[p] = v
-            # stderr.write('INFO: found localparam "%s" with value %d\n' % (p, v))
+            if verbose:
+                stderr.write('INFO: found parameter "%s" with value %d\n' % (p, v))
+    if "endcase" in line:
+        bank_state = None
+    if "case" in line and "addr" in line:
+        m4 = re.search(r"\bcase\s*\(\w*addr", line)
+        if m4:
+            bank_state = "=armed="
 print(",\n".join(sl))
 print("}")
 exit(fail)

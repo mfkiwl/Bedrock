@@ -1,9 +1,16 @@
 // High-speed cycle counter
+
+// This module attaches to the slow readout bus used in many
+// LBNL DAQ builds. It provides a 59-bit cycle counter (since chip boot),
+// and an optional timestamp capture register.
+
+// The 8-bit-wide shift-register-style output is ready to be merged
+// in a "slow" DSP data stream, LSB-first.  Sorry about the byte-order,
+// but it's intrinsic to the mechanism used.
+
 // Synthesizes to 54 LUTs and 31 Flip flops at 150 MHz in XC3S1000-5 with XST 12.1 (aux_reg=0)
 // Synthesizes to 101 LUTs and 65 Flip flops at 150 MHz in XC3S1000-5 with XST 12.1 (aux_reg=1)
 // 59-bit counter will wrap every 182 years if clocked at 100 MHz.
-// 8-bit-wide shift-register-style output for merging in the "slow" DSP data stream.
-// LSB-first.  Sorry about that, but it's intrinsic to the mechanism used.
 `timescale 1ns / 1ns
 module timestamp(
 	input clk,  // timespec 6.6 ns
@@ -94,8 +101,8 @@ assign shift_in2 = aux_reg ? (apost8 ? ashiftd : axmit ? asnap_out : 0) : shift_
 // Making an explicit copy like this avoids a warning when dw != 8
 assign shift_out=snap_out;
 
-// More-or-less equivalent to
-// define SLOW_SR_DATA { time1, time2, time3, time4, atime1, atime2, atime3, atime4 }
-// but uses far fewer resources
+// More-or-less equivalent to adding
+//   { time1, time2, time3, time4, atime1, atime2, atime3, atime4 }
+// to slow_sr_data, but uses far fewer resources
 
 endmodule

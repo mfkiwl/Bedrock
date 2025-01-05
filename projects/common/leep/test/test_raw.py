@@ -45,6 +45,9 @@ class SimServer(object):
             'base_addr': 102,
             'data_width': 32,
         },
+        '__metadata__': {
+            'application': 'testing',
+        },
     }
 
     def __init__(self):
@@ -79,7 +82,7 @@ class SimServer(object):
             pass
         self.S.close()
         self.T.join(1.0)
-        assert not self.T.isAlive(), self.T
+        assert not self.T.is_alive(), self.T
         _log.info('SimServer %s joined', self.url)
 
     def run(self):
@@ -165,7 +168,8 @@ class TestRaw(unittest.TestCase):
             assert_equal(dev.reg_read(['sarr'])[0],
                          [0x12345678, -559038737])
 
-            self.serv.data[100] = self.serv.data[102] = self.serv.data[101] = self.serv.data[103] = 0
+            self.serv.data[100] = self.serv.data[102] = 0
+            self.serv.data[101] = self.serv.data[103] = 0
 
             dev.reg_write([('uarr', [0x12345679, 0xdeadbeef]),
                            ('sarr', [0x12345679, 0xdeadbeef])])
@@ -175,7 +179,8 @@ class TestRaw(unittest.TestCase):
             self.assertEqual(self.serv.data[102], 0x12345679)
             self.assertEqual(self.serv.data[103], 0xdeadbeef)
 
-            self.serv.data[100] = self.serv.data[102] = self.serv.data[101] = self.serv.data[103] = 0
+            self.serv.data[100] = self.serv.data[102] = 0
+            self.serv.data[101] = self.serv.data[103] = 0
 
             dev.reg_write([('uarr', [0x12345679, -559038737]),
                            ('sarr', [0x12345679, -559038737])])
@@ -184,3 +189,29 @@ class TestRaw(unittest.TestCase):
             self.assertEqual(self.serv.data[101], 0xdeadbeef)
             self.assertEqual(self.serv.data[102], 0x12345679)
             self.assertEqual(self.serv.data[103], 0xdeadbeef)
+
+
+def test_raw_int():
+    from leep.raw import _int
+    tests = {
+        "foo": None,
+        "123": 123,
+        "0x100": 0x100,
+        "0b1000": 0b1000,
+        "0xreg": None,
+        "0bentry": None,
+    }
+    for key, val in tests.items():
+        if val != _int(key):
+            raise Exception("Test failed _int({}) = {} != {}".format(key, _int(key), val))
+    return True
+
+
+def doTests():
+    test_raw_int()
+    print("PASS")
+    return
+
+
+if __name__ == "__main__":
+    doTests()

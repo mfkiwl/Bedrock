@@ -1,31 +1,120 @@
-
 from __future__ import print_function
-from . import open
-import numpy
-from collections import defaultdict
-import ast
-import shutil
-import tempfile
-import sys
-import json
 
 import logging
+
+import json
+import sys
+import tempfile
+import shutil
+import ast
+import re
+
+from collections import defaultdict
+
+from . import open
+from . import RomError
+
+
 _log = logging.getLogger(__name__)
 
 
-def readwrite(args, dev):
-    for pair in args.reg:
-        name, _eq, val = pair.partition('=')
-        if len(val):
-            val = ast.literal_eval(val)
-            dev.reg_write([(name, val)])
+def _int(s):
+    return int(ast.literal_eval(s))
+
+
+def _expandWriteVals(ss):
+    """Convert string 'n,m,l,k,...' into list of ints [n, m, l, k, ...]
+    Raise Exception if not all items separated by commas can be interpreted as integers."""
+    if ',' not in ss:
+        return _int(ss)
+    vals = [_int(x) for x in ss.split(',')]
+    return vals
+
+
+def parseTransaction(xact):
+    """
+    Parse transaction string from CLI.  Returns (str/int reg, int offset, int/None size, int/None write_val)
+    If 'reg' is type int, it is an explicit base address.
+        If 'size' is None, size = 1
+    If 'reg' is type str, it is a register name (supposedly).
+        If 'size' is None, size = 2**aw (where 'aw' is the 'addr_width' from the romx JSON)
+    If 'write_val' is None, it's a read transaction, else it's a write of value 'write_val'
+    Viable formats for a transaction (read/write) in string form:
+        Example                 Implied Transaction
+        -------------------------------------------
+        regname                 Read from named register (str) 'regname'
+        regaddr                 Read from explicit address (int) 'regaddr'
+        regname=val             Write (int) 'val' to named register (str) 'regname'
+        regaddr=val             Write (int) 'val' to explicit address (int) 'regaddr'
+        regname=val0,...,valN   Write (int) 'val0' through 'valN' to consecutive addresses beginning at the
+                                address of named register (str) 'regname'
+        regaddr=val0,...,valN   Write (int) 'val0' through 'valN' to consecutive addresses beginning at
+                                address (int) 'regaddr'
+        regname+offset          Read from address = romx['regname']['base_addr'] + (int) 'offset'
+        regaddr+offset          Read from address = (int) 'regaddr' + (int) 'offset'
+        regname:size            Read (int) 'size' elements starting from address romx['regname']['base_addr']
+        regaddr:size            Read (int) 'size' elements starting from (int) 'regaddr'
+        regname+offset=val      Write (int) 'val' to address romx['regname']['base_addr'] + (int) 'offset'
+        regname+offset=val0,...,valN    Write (int) 'val0' through 'valN' to consecutive addresses beginning at
+                                        address romx['regname']['base_addr'] + (int) 'offset'
+        regaddr+offset=val      Write (int) 'val' to address (int) 'regaddr' + (int) 'offset'
+        regaddr+offset=val0,...,valN    Write (int) 'val0' through 'valN' to consecutive addresses beginning at
+                                        address (int) 'regaddr'
+        regname+offset:size     Read (int) 'size' elements starting from address romx['regname']['base_addr'] + \
+                                (int) 'offset'
+        regaddr+offset:size     Read (int) 'size' elements starting from (int) 'regaddr' + (int) 'offset'
+    I'm not sure what use case the "regaddr+offset" syntax supports, but it does no harm to include it.
+    NOTE! Deliberately not supporting "regname-offset" (negative offsets) as it's use case is unclear
+    and a '_' to '-' typo could potentially collide with legitimate transactions.
+    """
+    restr = r"(\w+)\s*([=+:])?\s*([0-9a-fA-Fx,\-]+)?\s*([=:])?\s*([0-9a-fA-Fx,\-]+)?"
+    _match = re.match(restr, xact)
+    offset = 0
+    wval = None
+    size = None
+    if _match:
+        groups = _match.groups()
+        regstr = groups[0]  # Always starts with 'regname' or 'regaddr'
+        if groups[1] == '=':
+            wval = _expandWriteVals(groups[2])
+        elif groups[1] == '+':
+            offset = _int(groups[2])
+        elif groups[1] == ':':
+            size = _int(groups[2])
+        if groups[3] == '=':
+            if groups[1] == '=':
+                raise Exception("Malformed transaction: {}".format(xact))
+            wval = _expandWriteVals(groups[4])
+        elif groups[3] == ':':
+            if size is not None:
+                raise Exception("Malformed transaction: {}".format(xact))
+            size = _int(groups[4])
+    else:
+        raise Exception("Failed to match: {}".format(xact))
+    try:
+        reg = _int(regstr)
+    except ValueError:
+        reg = regstr
+    if size is None:
+        if wval is None:
+            size = None
         else:
-            value, = dev.reg_read((name,))
-            if isinstance(value, (list, numpy.ndarray)):
-                print("%s \t%08s" %
-                      (name, ' '.join(['%x' % v for v in value])))
-            else:
-                print("%s \t%08x" % (name, value))
+            size = 0
+    return (reg, offset, size, wval)
+
+
+def readwrite(args, dev):
+    for xact in args.reg:
+        reg, offset, size, wvals = parseTransaction(xact)
+        if wvals is not None:
+            dev.reg_write_offset([(reg, wvals, offset)])
+        else:
+            value, = dev.reg_read_size(((reg, size, offset),))
+            try:
+                _ = iter(value)
+                print("%s \t%s" % (reg, ' '.join(['%x' % v for v in value])))
+            except TypeError:
+                print("%s \t%x" % (reg, value))
 
 
 def listreg(args, dev):
@@ -93,6 +182,14 @@ def dumpjson(args, dev):
     sys.stdout.write('\n')
 
 
+def dumpgitid(args, dev):
+    print(dev.codehash)
+
+
+def dumpdescript(args, dev):
+    print(dev.descript)
+
+
 def dumpdrv(args, dev):
     if dev.backend != 'ca':
         _log.error("Only 'ca' backend supports, not '%s'", dev.backend)
@@ -104,7 +201,7 @@ def dumpdrv(args, dev):
 class MapDirect(object):
 
     def __call__(self, name):
-        return 'reg_'+name
+        return 'reg_' + name
 
 
 class MapPlain(object):
@@ -119,7 +216,7 @@ class MapShort(object):
         self._next = 0
 
     def __call__(self, name):
-        N, self._next = self._next, self._next+1
+        N, self._next = self._next, self._next + 1
         return 'REG%x' % N
 
 
@@ -173,8 +270,10 @@ def gentemplate(args, dev):
         infos.sort(key=lambda i: i['pv'])
 
         for info in infos:
-            out.write(
-                '{PREF="$(CHAS):%(pv)s",\tREG="%(name)s",\tSIZE="%(size)s"}\n' % info)
+            s = '{PREF="$(CHAS):%(pv)s",'
+            s += '\tREG="%(name)s",'
+            s += '\tSIZE="%(size)s"}\n'
+            out.write(s % info)
 
         out.write('}\n\n')
 
@@ -197,6 +296,7 @@ def getargs():
     P.add_argument('-i', '--inst', action='append', default=[])
     P.add_argument('dest', metavar="URI",
                    help="Server address.  ca://Prefix or leep://host[:port]")
+    P.set_defaults(func=lambda args, dev: None)
 
     SP = P.add_subparsers()
 
@@ -229,6 +329,12 @@ def getargs():
     S = SP.add_parser('json', help='print json')
     S.set_defaults(func=dumpjson)
 
+    S = SP.add_parser('gitid', help='print gitid')
+    S.set_defaults(func=dumpgitid)
+
+    S = SP.add_parser('descript', help='print descript')
+    S.set_defaults(func=dumpdescript)
+
     S = SP.add_parser('drvinfo', help='print drive info json (ca:// only)')
     S.set_defaults(func=dumpdrv)
 
@@ -246,7 +352,12 @@ def getargs():
 def main():
     args = getargs()
     logging.basicConfig(level=args.debug)
-    dev = open(args.dest, timeout=args.timeout, instance=args.inst)
+    try:
+        dev = open(args.dest, timeout=args.timeout, instance=args.inst)
+    except RomError as e:
+        _log.error("cli.py: %s, %s. Quitting." % (args.dest, str(e)))
+        return
+
     args.func(args, dev)
 
 

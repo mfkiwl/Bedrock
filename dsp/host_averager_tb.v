@@ -17,9 +17,13 @@ initial begin
 		clk=1; #4;
 	end
 	if (tx_cnt < 10) fail=1;
-	$display("%s", fail ? "FAIL" : "PASS");
-	if (fail) $stop();
-	$finish();
+	if (fail) begin
+		$display("FAIL");
+		$stop(0);
+	end else begin
+		$display("PASS");
+		$finish(0);
+	end
 end
 
 // Construct stimulus
@@ -59,7 +63,7 @@ always @(posedge clk) begin
 	npt_prev <= npt;
 	avg_prev <= average;
 
-	// Barebones model that computes expected npt. Average output currently not modeled
+	// Bare-bones model that computes expected npt. Average output currently not modeled
 	npt_v = npt_model;
 	if (read_s) npt_v = 0;
 	if (data_s) npt_v = (npt_v<255) ? npt_v + 1 : 255;

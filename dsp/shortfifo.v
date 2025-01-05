@@ -81,7 +81,7 @@ always @(posedge clk) begin
 		f_r_addr <= f_r_addr + 1;
 
 	// FIFO sequence
-	// Follow up the FIFO state transistions as 2 values enter and leave it
+	// Follow up the FIFO state transitions as 2 values enter and leave it
 	// Need to do it for 2 values to verify the correct order
 	case (f_state)
 		0: begin  // IDLE state
@@ -172,6 +172,8 @@ endmodule
 
 // should infer as a single SRL16E, SRL32E, ...
 // See "Dynamic Shift Registers Verilog Coding Example" in UG687
+/* verilator lint_save */
+/* verilator lint_off DECLFILENAME */
 module abstract_dsr #(
 	parameter aw=4
 ) (
@@ -186,3 +188,4 @@ reg [len-1:0] sr=0;
 always @(posedge clk) if (ce) sr <= {sr[len-2:0],din};
 assign dout = sr[addr];
 endmodule
+/* verilator lint_restore */

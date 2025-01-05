@@ -1,3 +1,5 @@
+`timescale 1ns / 1ns
+
 // One more try to package up the LBNL conveyor belt in a usable and
 // comprehensible form.
 
@@ -91,6 +93,7 @@ module iq_trace #(
       .sample_period_wi (pcw))
    i_multi_sampler (
       .clk             (clk),
+      .reset           (reset),
       .ext_trig        (1'b1),
       .sample_period   (cic_period),
       .dsample0_period (8'h1),
@@ -206,6 +209,7 @@ module iq_trace #(
       .buf_auto_flip (0))
    i_circle_buf_serial (
       .iclk            (clk),
+      .reset           (reset),
       .sr_in           ({result_q,result_i}),
       .sr_stb          (circle_stb),
       .chan_mask       (keep),

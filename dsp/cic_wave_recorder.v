@@ -44,11 +44,11 @@ module cic_wave_recorder #(
    parameter buf_aw=13,
    parameter lsb_mask=1,      // LSB of channel mask is CH0
    parameter buf_stat_w=16,
-   parameter buf_auto_flip=1) // auto_flip=1: Double buffers will be flipped when
+   parameter buf_auto_flip=1  // auto_flip=1: Double buffers will be flipped when
                               //              last read address is reached
                               // auto_flip=0: Buffers must be explicitly flipped by
                               //              using stb_out as a pulse and not a strobe
-(
+) (
    input                      iclk,
    input                      reset,
    input                      stb_in,          // Strobe signal for input samples
@@ -65,6 +65,11 @@ module cic_wave_recorder #(
 
    // Channel selector controls
    input [n_chan-1:0]         chan_mask,       // Bitmask of channels to record
+
+   // Selected waveform data in iclk domain
+   output                     wave_gate_out,
+   output                     wave_dval_out,
+   output                     [buf_dw-1:0] wave_data_out,
 
    // Circular Buffer control and status
    input                      oclk,
@@ -124,16 +129,16 @@ module cic_wave_recorder #(
    // Double-buffered circular buffer
    // ------
 
-   wire [buf_dw-1:0] wave_data;
+   wire [buf_dw-1:0] wave_data_i;
 
    // Resize output of CIC filter so it can be stored in circle_buf
    generate
       if (cc_outw > buf_dw) begin: g_wave_data_resize
-         assign wave_data = cic_sr_out[cc_outw-1:(cc_outw-buf_dw)]; // Drop lsbs
-      end else if (cc_outw < buf_dw) begin
-         assign wave_data = {{(buf_dw-cc_outw){1'b0}}, cic_sr_out}; // Zero extend
-      end else begin
-         assign wave_data = cic_sr_out;
+         assign wave_data_i = cic_sr_out[cc_outw-1:(cc_outw-buf_dw)]; // Drop lsbs
+      end else if (cc_outw < buf_dw) begin: g_wave_data_pad
+         assign wave_data_i = {{(buf_dw-cc_outw){1'b0}}, cic_sr_out}; // Zero extend
+      end else begin: g_wave_data_direct
+         assign wave_data_i = cic_sr_out;
       end
    endgenerate
 
@@ -167,9 +172,13 @@ module cic_wave_recorder #(
       .buf_auto_flip (buf_auto_flip))
    i_circle_buf_serial (
       .iclk            (iclk),
-      .sr_in           (wave_data),
+      .reset           (reset),
+      .sr_in           (wave_data_i),
       .sr_stb          (cic_stb_out & (~wr_gated & ~wr_gated_r)),
       .chan_mask       (chan_mask),
+      .wave_data       (wave_data_out),
+      .wave_dval       (wave_dval_out),
+      .wave_gate       (wave_gate_out),
       .oclk            (oclk),
       .buf_sync        (buf_sync),
       .buf_transferred (buf_transferred),
@@ -185,4 +194,3 @@ module cic_wave_recorder #(
    );
 
 endmodule
-

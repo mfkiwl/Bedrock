@@ -6,8 +6,7 @@
 // Ethernet core/local-bus provides access to ChitChat operating in loopback mode.
 // ------------------------------------
 
-module comms_top
-(
+module comms_top (
    input   sys_clk_p,       // 50 MHz clock
    input   sys_clk_n,
    input   kintex_data_in_p,
@@ -470,4 +469,3 @@ wire [31:0] ctr_mem_out;
    assign LEDS = {lbus_led, an_status[0]};
 
 endmodule
-

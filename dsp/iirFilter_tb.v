@@ -1,4 +1,4 @@
-`timescale 1 ns / 1ns
+`timescale 1ns / 1ns
 
 module iirFilter_tb;
 
@@ -45,8 +45,10 @@ integer xCheck, x, xOld;
 integer i;
 
 initial begin
-    $dumpfile("iirFilter_tb.lxt");
-    $dumpvars(0, iirFilter_tb);
+    if ($test$plusargs("vcd")) begin
+        $dumpfile("iirFilter.vcd");
+        $dumpvars(3,iirFilter_tb);
+    end
     #40;
 
     $display("Unity gain");
@@ -72,8 +74,13 @@ initial begin
     check(        0,-19175000);
 
     #100;
-    $display("%s",  pass ? "PASS" : "FAIL");
-    $finish;
+    if (pass) begin
+      $display("PASS");
+      $finish(0);
+    end else begin
+      $display("FAIL");
+      $stop(0);
+    end
 end
 
 task setCoefficients;
