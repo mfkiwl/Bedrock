@@ -1,0 +1,68 @@
+.. _saturateMath:
+
+saturateMath
+============
+
+Description
+'''''''''''
+
+| 
+|  Useful modules for performing saturating arithmetic //
+| 
+| 
+|  Expand a net's width
+
+Pinout
+''''''
+
+.. _fig:saturateMath_block:
+.. figure:: saturateMath_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: saturateMath_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - IWIDTH
+     - ?
+     - ?
+     - 8
+     - 
+   * - OWIDTH
+     - ?
+     - ?
+     - 12
+     - 
+
+Ports
+'''''
+
+.. list-table:: saturateMath_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - I[IWIDTH-1:0]
+     - Input
+     - 
+   * - O[OWIDTH-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`saturateMath_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

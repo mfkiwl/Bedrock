@@ -1,0 +1,99 @@
+.. _dpram:
+
+dpram
+=====
+
+Description
+'''''''''''
+
+|  Dual port memory with independent clocks, port B is read-only
+|  Altera and Xilinx synthesis tools successfully "find" this as block memory
+
+Pinout
+''''''
+
+.. _fig:dpram_block:
+.. figure:: dpram_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: dpram_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - aw
+     - ?
+     - ?
+     - 8
+     - 
+   * - dw
+     - ?
+     - ?
+     - 8
+     - 
+   * - initial_file
+     - ?
+     - ?
+     - 
+     - 
+
+Ports
+'''''
+
+.. list-table:: dpram_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clka
+     - Input
+     - 
+   * - clkb
+     - Input
+     - 
+   * - addra[aw-1:0]
+     - Input
+     - 
+   * - douta[dw-1:0]
+     - Output
+     - 
+   * - dina[dw-1:0]
+     - Input
+     - 
+   * - wena
+     - Input
+     - 
+   * - addrb[aw-1:0]
+     - Input
+     - 
+   * - doutb[dw-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`dpram_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:dpram_timing:
+.. figure:: dpram_timing.png
+    :alt: Timing diagram
+

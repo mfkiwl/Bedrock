@@ -1,0 +1,104 @@
+.. _fdownconvert:
+
+fdownconvert
+============
+
+Description
+'''''''''''
+
+|  Synthesizes to 80 4-LUTs and 2 MULT18X18s at 150 MHz in XC3Sxxx-4 using XST-10.1i
+| 
+|  Name: Near-IQ Downconverter
+| % Provide LO at cosd and sind ports
+| % Output is stream of IQ samples
+|  Input cosd and sind are ordinary LO signals, and this module reorders them.
+|  N.B.: full-scale negative is an invalid LO value.
+| 
+|  Compute IQ by performing the matrix multiplication described in the paper below
+|  http://recycle.lbl.gov/~ldoolitt/llrf/down/reconstruct.pdf
+|  Where n and n+1 are consecutive samples in time
+|  | I | =  |  sin[n + 1]\theta   -sin n\theta |  X  | a_data[n]   |
+|  | Q |    | -cos[n + 1]\theta    cos n\theta |     | a_data[n+1] |
+|  Larry Doolittle, LBNL, 2014
+
+Pinout
+''''''
+
+.. _fig:fdownconvert_block:
+.. figure:: fdownconvert_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: fdownconvert_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - a_dw
+     - ?
+     - ?
+     - 16
+     - XXX don't change this
+   * - o_dw
+     - ?
+     - ?
+     - 16
+     - XXX don't change this
+
+Ports
+'''''
+
+.. list-table:: fdownconvert_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - timespec 6.66 ns
+   * - mod2
+     - Input
+     - 
+   * - cosd[17:0]
+     - Input
+     - LO input
+   * - sind[17:0]
+     - Input
+     - LO input
+   * - a_data[a_dw-1:0]
+     - Input
+     - ADC readings
+   * - a_gate
+     - Input
+     - 
+   * - a_trig
+     - Input
+     - 
+   * - o_data[o_dw-1:0]
+     - Output
+     - Interleaved I&Q
+   * - o_gate
+     - Output
+     - 
+   * - o_trig
+     - Output
+     - 
+   * - time_err
+     - Output
+     - TODO: Explain this
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`fdownconvert_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

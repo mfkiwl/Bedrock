@@ -1,0 +1,70 @@
+.. _iq_double_inte:
+
+iq_double_inte
+==============
+
+Description
+'''''''''''
+
+| 
+|  Double-integrator for interleaved I-Q samples
+|  Front end of a second-order CIC, see iq_chain4
+| 
+
+Pinout
+''''''
+
+.. _fig:iq_double_inte_block:
+.. figure:: iq_double_inte_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: iq_double_inte_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - dwi
+     - ?
+     - ?
+     - 16
+     - data width in
+   * - dwo
+     - ?
+     - ?
+     - 28
+     - data width out
+
+Ports
+'''''
+
+.. list-table:: iq_double_inte_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - timespec 8.4 ns
+   * - in[dwi-1:0]
+     - Input
+     - IQ muxed
+   * - out[dwo-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`iq_double_inte_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

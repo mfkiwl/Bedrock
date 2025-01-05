@@ -1,0 +1,101 @@
+.. _phaset:
+
+phaset
+======
+
+Description
+'''''''''''
+
+|  Digital phase-locked-loop tracker
+| 
+|  At least in this application, the sampling clock is not phase-locked
+|  to the clocks of interest.  So a binary phase accumulator is as good
+|  as any, and it makes the arithmetic for subtracting the two results
+|  (from the two unknown clocks) easy.
+| 
+| 
+
+Pinout
+''''''
+
+.. _fig:phaset_block:
+.. figure:: phaset_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: phaset_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - order
+     - ?
+     - ?
+     - 1
+     - 
+   * - dw
+     - ?
+     - ?
+     - 14
+     - 
+   * - adv
+     - ?
+     - ?
+     - 3861
+     - 
+   * - delta
+     - ?
+     - ?
+     - 16
+     - 
+
+Ports
+'''''
+
+.. list-table:: phaset_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - uclk
+     - Input
+     - 
+   * - uclkg
+     - Input
+     - 
+   * - sclk
+     - Input
+     - 
+   * - phase[dw-1:0]
+     - Output
+     - 
+   * - fault
+     - Output
+     - single cycle
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`phaset_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:phaset_timing:
+.. figure:: phaset_timing.png
+    :alt: Timing diagram
+

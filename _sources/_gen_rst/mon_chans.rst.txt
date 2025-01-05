@@ -1,0 +1,100 @@
+.. _mon_chans:
+
+mon_chans
+=========
+
+Description
+'''''''''''
+
+| 
+
+Pinout
+''''''
+
+.. _fig:mon_chans_block:
+.. figure:: mon_chans_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: mon_chans_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - NCHAN
+     - ?
+     - ?
+     - 1
+     - 
+   * - DWI
+     - ?
+     - ?
+     - 16
+     - data width
+   * - RWI
+     - ?
+     - ?
+     - 28
+     - result width
+   * - DWLO
+     - ?
+     - ?
+     - 18
+     - Local Oscillator data width
+   * - DAVR
+     - ?
+     - ?
+     - 3
+     - 
+
+Ports
+'''''
+
+.. list-table:: mon_chans_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - timespec 8.4 ns
+   * - adc[NCHAN*DWI-1:0]
+     - Input
+     - possibly muxed
+   * - mlo[NCHAN*DWLO-1:0]
+     - Input
+     - 
+   * - samp
+     - Input
+     - 
+   * - s_in[RWI-1:0]
+     - Input
+     - 
+   * - s_out[RWI-1:0]
+     - Output
+     - 
+   * - g_in
+     - Input
+     - 
+   * - g_out
+     - Output
+     - 
+   * - reset
+     - Input
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`mon_chans_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

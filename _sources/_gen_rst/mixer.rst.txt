@@ -1,0 +1,85 @@
+.. _mixer:
+
+mixer
+=====
+
+Description
+'''''''''''
+
+| 
+
+Pinout
+''''''
+
+.. _fig:mixer_block:
+.. figure:: mixer_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: mixer_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - NORMALIZE
+     - ?
+     - ?
+     - 0
+     - 
+   * - NUM_DROP_BITS
+     - ?
+     - ?
+     - 1
+     - Number of bits to drop at the output.
+   * - dwi
+     - ?
+     - ?
+     - 16
+     - Width of ADC input
+   * - davr
+     - ?
+     - ?
+     - 4
+     - Guard bits to keep at output. E.g. if downstream
+   * - dwlo
+     - ?
+     - ?
+     - 18
+     - Width of local-oscillator input
+
+Ports
+'''''
+
+.. list-table:: mixer_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - adcf[dwi-1:0]
+     - Input
+     - 
+   * - mult[dwlo-1:0]
+     - Input
+     - 
+   * - mixout[dwi+davr-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`mixer_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

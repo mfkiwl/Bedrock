@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bedrock Modules &mdash; Bedrock  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="afterburner" href="_gen_rst/afterburner.html" />
+    <link rel="prev" title="lb_bridge README" href="_gen_md/soc/picorv32/test/lb_bridge/README_md.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Bedrock
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="general-docs.html">General Docs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bedrock Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dsp">DSP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/afterburner.html">afterburner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/async_to_sync_reset_shift.html">async_to_sync_reset_shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/banyan.html">banyan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/banyan_mem.html">banyan_mem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/biquad.html">biquad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/ccfilt.html">ccfilt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cic_interp.html">cic_interp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cic_multichannel.html">cic_multichannel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cic_simple_us.html">cic_simple_us</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html">cic_wave_recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cim_12x.html">cim_12x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/circle_buf.html">circle_buf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/circle_buf_serial.html">circle_buf_serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/complex_freq.html">complex_freq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html">complex_freq_wrap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/complex_mul.html">complex_mul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/complex_mul_flat.html">complex_mul_flat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cordic_mux.html">cordic_mux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html">cpxmul_fullspeed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/data_xdomain.html">data_xdomain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/demand_gpt.html">demand_gpt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/double_inte.html">double_inte</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/double_inte_smp.html">double_inte_smp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/doublediff.html">doublediff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/doublediff1.html">doublediff1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/dpram.html">dpram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/dsp-digaree-module.html">DSP Digaree Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html">evr_ts_cdc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/fchan_subset.html">fchan_subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/fdownconvert.html">fdownconvert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/fifo.html">fifo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/fiq_interp.html">fiq_interp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/flag_xdomain.html">flag_xdomain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/flevel_set.html">flevel_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/freq_count.html">freq_count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/fwashout.html">fwashout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/half_filt.html">half_filt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/host_averager.html">host_averager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iirFilter.html">iirFilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/interp1.html">interp1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_chain4.html">iq_chain4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html">iq_deinterleaver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html">iq_deinterleaver_multichannel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_double_inte.html">iq_double_inte</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_inter.html">iq_inter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_intrp4.html">iq_intrp4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html">iq_mixer_multichannel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_modulator.html">iq_modulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/iq_trace.html">iq_trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/isqrt.html">isqrt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/ll_prop.html">ll_prop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/lpass1.html">lpass1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/minmax.html">minmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/mixer.html">mixer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/mon_2chan.html">mon_2chan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/mon_2chiq.html">mon_2chiq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/mon_chans.html">mon_chans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/multi_counter.html">multi_counter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/multi_sampler.html">multi_sampler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/multiply_accumulate.html">multiply_accumulate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/pdetect.html">pdetect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/ph_acc.html">ph_acc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/phase_diff.html">phase_diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/phaset.html">phaset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/phasex.html">phasex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/reg_delay.html">reg_delay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/rot_dds.html">rot_dds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/rr_arb.html">rr_arb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/rtsim-module.html">RTSIM Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/sat_add.html">sat_add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/saturateMath.html">saturateMath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/serialize.html">serialize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/serializer_multichannel.html">serializer_multichannel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/shortfifo.html">shortfifo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/ssb_out.html">ssb_out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/tgen.html">tgen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/timestamp.html">timestamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/tt800.html">tt800</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/upconv.html">upconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_gen_rst/xy_pi_clip.html">xy_pi_clip</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rtsim-module.html">RTSIM Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp-digaree-module.html">DSP Digaree Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Bedrock</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bedrock Modules</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bedrock-modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This documentation is a work in progress.
+Expect to see errors and unfinished things.</p>
+</div>
+<section id="bedrock-modules">
+<span id="id1"></span><h1>Bedrock Modules<a class="headerlink" href="#bedrock-modules" title="Permalink to this heading"></a></h1>
+<section id="dsp">
+<h2>DSP<a class="headerlink" href="#dsp" title="Permalink to this heading"></a></h2>
+<p>In the DSP directory you can find various various digital signal
+processing algorithms implemented in platform-independent (portable)
+Verilog, and their test benches; modules include DDS, Down-conversion,
+Up-conversion, CIC Filters, Low-Pass filters, High-Pass filters, Mixers.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/afterburner.html">afterburner</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/afterburner.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/afterburner.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/afterburner.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/afterburner.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/afterburner.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/afterburner.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/async_to_sync_reset_shift.html">async_to_sync_reset_shift</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/async_to_sync_reset_shift.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/async_to_sync_reset_shift.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/async_to_sync_reset_shift.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/async_to_sync_reset_shift.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/banyan.html">banyan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/banyan_mem.html">banyan_mem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan_mem.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan_mem.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan_mem.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan_mem.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan_mem.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/banyan_mem.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/biquad.html">biquad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/biquad.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/biquad.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/biquad.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/biquad.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/biquad.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/biquad.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/ccfilt.html">ccfilt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ccfilt.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ccfilt.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ccfilt.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ccfilt.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ccfilt.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cic_interp.html">cic_interp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_interp.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_interp.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_interp.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_interp.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_interp.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cic_multichannel.html">cic_multichannel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_multichannel.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_multichannel.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_multichannel.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_multichannel.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_multichannel.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_multichannel.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cic_simple_us.html">cic_simple_us</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_simple_us.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_simple_us.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_simple_us.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_simple_us.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_simple_us.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_simple_us.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html">cic_wave_recorder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cic_wave_recorder.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cim_12x.html">cim_12x</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cim_12x.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cim_12x.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cim_12x.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cim_12x.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cim_12x.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/circle_buf.html">circle_buf</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/circle_buf_serial.html">circle_buf_serial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf_serial.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf_serial.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf_serial.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf_serial.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf_serial.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/circle_buf_serial.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/complex_freq.html">complex_freq</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html">complex_freq_wrap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_freq_wrap.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/complex_mul.html">complex_mul</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/complex_mul_flat.html">complex_mul_flat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul_flat.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul_flat.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul_flat.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul_flat.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/complex_mul_flat.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cordic_mux.html">cordic_mux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cordic_mux.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cordic_mux.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cordic_mux.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cordic_mux.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cordic_mux.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html">cpxmul_fullspeed</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/cpxmul_fullspeed.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/data_xdomain.html">data_xdomain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/data_xdomain.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/data_xdomain.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/data_xdomain.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/data_xdomain.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/data_xdomain.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/data_xdomain.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/demand_gpt.html">demand_gpt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/demand_gpt.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/demand_gpt.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/demand_gpt.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/demand_gpt.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/demand_gpt.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/double_inte.html">double_inte</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/double_inte_smp.html">double_inte_smp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte_smp.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte_smp.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte_smp.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte_smp.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/double_inte_smp.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/doublediff.html">doublediff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/doublediff1.html">doublediff1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff1.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff1.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff1.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff1.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/doublediff1.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/dpram.html">dpram</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dpram.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dpram.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dpram.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dpram.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dpram.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dpram.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/dsp-digaree-module.html">DSP Digaree Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/dsp-digaree-module.html#dsp-digaree">DSP Digaree</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html">evr_ts_cdc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/evr_ts_cdc.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/fchan_subset.html">fchan_subset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fchan_subset.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fchan_subset.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fchan_subset.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fchan_subset.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fchan_subset.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/fdownconvert.html">fdownconvert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fdownconvert.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fdownconvert.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fdownconvert.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fdownconvert.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fdownconvert.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/fifo.html">fifo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fifo.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fifo.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fifo.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fifo.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fifo.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/fiq_interp.html">fiq_interp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fiq_interp.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fiq_interp.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fiq_interp.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fiq_interp.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fiq_interp.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/flag_xdomain.html">flag_xdomain</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flag_xdomain.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flag_xdomain.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flag_xdomain.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/flevel_set.html">flevel_set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flevel_set.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flevel_set.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flevel_set.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flevel_set.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/flevel_set.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/freq_count.html">freq_count</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/freq_count.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/freq_count.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/freq_count.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/freq_count.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/freq_count.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/freq_count.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/fwashout.html">fwashout</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fwashout.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fwashout.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fwashout.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fwashout.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fwashout.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/fwashout.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/half_filt.html">half_filt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/half_filt.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/half_filt.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/half_filt.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/half_filt.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/half_filt.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/half_filt.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/host_averager.html">host_averager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/host_averager.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/host_averager.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/host_averager.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/host_averager.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iirFilter.html">iirFilter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iirFilter.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iirFilter.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iirFilter.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iirFilter.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iirFilter.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iirFilter.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/interp1.html">interp1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/interp1.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/interp1.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/interp1.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_chain4.html">iq_chain4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_chain4.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_chain4.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_chain4.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_chain4.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_chain4.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html">iq_deinterleaver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html">iq_deinterleaver_multichannel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_deinterleaver_multichannel.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_double_inte.html">iq_double_inte</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_double_inte.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_double_inte.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_double_inte.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_double_inte.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_double_inte.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_inter.html">iq_inter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_inter.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_inter.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_inter.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_inter.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_inter.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_intrp4.html">iq_intrp4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_intrp4.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_intrp4.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_intrp4.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_intrp4.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html">iq_mixer_multichannel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_mixer_multichannel.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_modulator.html">iq_modulator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_modulator.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_modulator.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_modulator.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_modulator.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_modulator.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/iq_trace.html">iq_trace</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_trace.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_trace.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_trace.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_trace.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_trace.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/iq_trace.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/isqrt.html">isqrt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/isqrt.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/isqrt.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/isqrt.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/isqrt.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/isqrt.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/ll_prop.html">ll_prop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ll_prop.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ll_prop.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ll_prop.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ll_prop.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/lpass1.html">lpass1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/lpass1.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/lpass1.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/lpass1.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/lpass1.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/lpass1.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/minmax.html">minmax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/minmax.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/minmax.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/minmax.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/minmax.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/minmax.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/mixer.html">mixer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mixer.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mixer.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mixer.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mixer.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mixer.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/mon_2chan.html">mon_2chan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chan.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chan.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chan.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chan.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chan.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/mon_2chiq.html">mon_2chiq</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chiq.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chiq.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chiq.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chiq.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_2chiq.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/mon_chans.html">mon_chans</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_chans.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_chans.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_chans.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_chans.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/mon_chans.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/multi_counter.html">multi_counter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_counter.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_counter.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_counter.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_counter.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_counter.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_counter.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/multi_sampler.html">multi_sampler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_sampler.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_sampler.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_sampler.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_sampler.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_sampler.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multi_sampler.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/multiply_accumulate.html">multiply_accumulate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multiply_accumulate.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multiply_accumulate.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multiply_accumulate.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multiply_accumulate.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multiply_accumulate.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/multiply_accumulate.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/pdetect.html">pdetect</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/pdetect.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/pdetect.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/pdetect.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/pdetect.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/pdetect.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/ph_acc.html">ph_acc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ph_acc.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ph_acc.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ph_acc.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ph_acc.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/phase_diff.html">phase_diff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phase_diff.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phase_diff.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phase_diff.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phase_diff.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phase_diff.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phase_diff.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/phaset.html">phaset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phaset.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phaset.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phaset.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phaset.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phaset.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phaset.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/phasex.html">phasex</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phasex.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phasex.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phasex.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phasex.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/phasex.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/reg_delay.html">reg_delay</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/reg_delay.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/reg_delay.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/reg_delay.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/reg_delay.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/reg_delay.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/rot_dds.html">rot_dds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rot_dds.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rot_dds.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rot_dds.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rot_dds.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rot_dds.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rot_dds.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/rr_arb.html">rr_arb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rr_arb.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rr_arb.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rr_arb.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rr_arb.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/rtsim-module.html">RTSIM Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/rtsim-module.html#rtsim">RTSIM</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/sat_add.html">sat_add</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/sat_add.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/sat_add.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/sat_add.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/sat_add.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/sat_add.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/saturateMath.html">saturateMath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/saturateMath.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/saturateMath.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/saturateMath.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/saturateMath.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/saturateMath.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/serialize.html">serialize</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serialize.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serialize.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serialize.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serialize.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serialize.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/serializer_multichannel.html">serializer_multichannel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serializer_multichannel.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serializer_multichannel.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serializer_multichannel.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serializer_multichannel.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serializer_multichannel.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/serializer_multichannel.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/shortfifo.html">shortfifo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/shortfifo.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/shortfifo.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/shortfifo.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/shortfifo.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/shortfifo.html#implementation-and-use">Implementation and use</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/ssb_out.html">ssb_out</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ssb_out.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ssb_out.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ssb_out.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ssb_out.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/ssb_out.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/tgen.html">tgen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tgen.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tgen.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tgen.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tgen.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tgen.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tgen.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/timestamp.html">timestamp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/timestamp.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/timestamp.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/timestamp.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/timestamp.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/timestamp.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/timestamp.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/tt800.html">tt800</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tt800.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tt800.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tt800.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tt800.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/tt800.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/upconv.html">upconv</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/upconv.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/upconv.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/upconv.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/upconv.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/upconv.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_gen_rst/xy_pi_clip.html">xy_pi_clip</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/xy_pi_clip.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/xy_pi_clip.html#pinout">Pinout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/xy_pi_clip.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/xy_pi_clip.html#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/xy_pi_clip.html#implementation-and-use">Implementation and use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_gen_rst/xy_pi_clip.html#timing-diagram">Timing Diagram</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="_gen_md/soc/picorv32/test/lb_bridge/README_md.html" class="btn btn-neutral float-left" title="lb_bridge README" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_gen_rst/afterburner.html" class="btn btn-neutral float-right" title="afterburner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, LBNL ATG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

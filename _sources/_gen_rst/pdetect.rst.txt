@@ -1,0 +1,83 @@
+.. _pdetect:
+
+pdetect
+=======
+
+Description
+'''''''''''
+
+|  Synthesizes to 17 slices at 155 MHz in XC3Sxxx-4 using XST-10.1i
+| 
+|  Transform a raw phase difference (-pi to pi) into a control signal
+|  for a PLL.  Uses internal state to generate the right full-scale
+|  DC signal when the frequencies are mismatched.  In the final,
+|  locked-at-zero-phase state, the output equals the input.
+| 
+|  Subtle API change from old pdetect: when strobe_in is not set,
+|  the output follows the input exactly.
+| 
+|  Yet another API change: new input "reset", only used when strobe_in
+|  is set, resets the state machine to unwound.
+| 
+
+Pinout
+''''''
+
+.. _fig:pdetect_block:
+.. figure:: pdetect_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: pdetect_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - w
+     - ?
+     - ?
+     - 17
+     - 
+
+Ports
+'''''
+
+.. list-table:: pdetect_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - ang_in[w-1:0]
+     - Input
+     - 
+   * - strobe_in
+     - Input
+     - 
+   * - reset
+     - Input
+     - 
+   * - ang_out[w-1:0]
+     - Output
+     - 
+   * - strobe_out
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`pdetect_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

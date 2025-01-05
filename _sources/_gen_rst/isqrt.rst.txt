@@ -1,0 +1,82 @@
+.. _isqrt:
+
+isqrt
+=====
+
+Description
+'''''''''''
+
+| 
+| 
+|  Simple-minded integer square root
+|  Result is truncated not rounded
+| 
+|  General purpose with the caveat that XWIDTH should be greater than 3.
+|  (X_WIDTH+1)/2 + 1 cycles per operation, non-pipelined.
+|  Asserting en when computation is in progress will
+|  cancel the computation and start another.
+| 
+|  With XWIDTH=32, synthesizable to 110 MHz on Spartan3-5.
+| 
+|  W. Eric Norum, Lawrence Berkeley National Laboratory
+| 
+| 
+
+Pinout
+''''''
+
+.. _fig:isqrt_block:
+.. figure:: isqrt_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: isqrt_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - X_WIDTH
+     - ?
+     - ?
+     - 32
+     - 
+
+Ports
+'''''
+
+.. list-table:: isqrt_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - x[X_WIDTH-1:0]
+     - Input
+     - 
+   * - en
+     - Input
+     - 
+   * - y[((X_WIDTH+1)/2)-1:0]
+     - Output
+     - 
+   * - dav
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`isqrt_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

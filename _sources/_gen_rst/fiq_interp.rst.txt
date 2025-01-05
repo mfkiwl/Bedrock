@@ -1,0 +1,99 @@
+.. _fiq_interp:
+
+fiq_interp
+==========
+
+Description
+'''''''''''
+
+| 
+|  Name: IQ interpolator
+| % Takes interleaved I-Q, produces interpolated,
+| % separate streams ready for upconversion
+
+Pinout
+''''''
+
+.. _fig:fiq_interp_block:
+.. figure:: fiq_interp_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: fiq_interp_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - a_dw
+     - ?
+     - ?
+     - 16
+     - 
+   * - i_dw
+     - ?
+     - ?
+     - 17
+     - 
+   * - q_dw
+     - ?
+     - ?
+     - 17
+     - 
+
+Ports
+'''''
+
+.. list-table:: fiq_interp_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - a_data[a_dw-1:0]
+     - Input
+     - Interleaved I-Q Data
+   * - a_gate
+     - Input
+     - Data valid gate
+   * - a_trig
+     - Input
+     - 1 bit information telling data is I or Q
+   * - i_data[i_dw-1:0]
+     - Output
+     - 
+   * - i_gate
+     - Output
+     - 
+   * - i_trig
+     - Output
+     - 
+   * - q_data[q_dw-1:0]
+     - Output
+     - 
+   * - q_gate
+     - Output
+     - 
+   * - q_trig
+     - Output
+     - 
+   * - time_err
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`fiq_interp_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

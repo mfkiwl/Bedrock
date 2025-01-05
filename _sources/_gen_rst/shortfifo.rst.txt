@@ -1,0 +1,91 @@
+.. _shortfifo:
+
+shortfifo
+=========
+
+Description
+'''''''''''
+
+|  Short (2-32 long) FIFO meant to be efficiently implemented with
+|  Xilinx SRL16E or similar
+|  Except for the unified clock and the count output port,
+|  this is pin-compatible with ordinary fifo.v
+|  max. elements: 2**aw
+| 
+| 
+
+Pinout
+''''''
+
+.. _fig:shortfifo_block:
+.. figure:: shortfifo_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: shortfifo_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - dw
+     - ?
+     - ?
+     - 8
+     - 
+   * - aw
+     - ?
+     - ?
+     - 3
+     - 
+
+Ports
+'''''
+
+.. list-table:: shortfifo_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - din[dw-1:0]
+     - Input
+     - 
+   * - we
+     - Input
+     - 
+   * - dout[dw-1:0]
+     - Output
+     - 
+   * - re
+     - Input
+     - 
+   * - full
+     - Output
+     - 
+   * - empty
+     - Output
+     - 
+   * - last
+     - Output
+     - 
+   * - count[aw:0]
+     - Output
+     - -1: empty, 0: single element, 2**aw - 1: full
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`shortfifo_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

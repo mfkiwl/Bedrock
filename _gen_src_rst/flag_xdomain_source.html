@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flag_xdomain Source File &mdash; Bedrock  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Bedrock
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general-docs.html">General Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bedrock-modules.html">Bedrock Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rtsim-module.html">RTSIM Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dsp-digaree-module.html">DSP Digaree Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bedrock</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">flag_xdomain Source File</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_gen_src_rst/flag_xdomain_source.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This documentation is a work in progress.
+Expect to see errors and unfinished things.</p>
+</div>
+<section id="flag-xdomain-source-file">
+<span id="flag-xdomain-source"></span><h1>flag_xdomain Source File<a class="headerlink" href="#flag-xdomain-source-file" title="Permalink to this heading"></a></h1>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="no">`timescale</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span>
+<span class="linenos"> 2</span><span class="k">module</span><span class="w"> </span><span class="n">flag_xdomain</span><span class="p">(</span>
+<span class="linenos"> 3</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="n">clk1</span><span class="p">,</span>
+<span class="linenos"> 4</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="n">flagin_clk1</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="n">clk2</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">     </span><span class="k">output</span><span class="w"> </span><span class="n">flagout_clk2</span>
+<span class="linenos"> 7</span><span class="p">);</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1">// Step 1: generate 1-bit Gray code</span>
+<span class="linenos">10</span><span class="kt">reg</span><span class="w"> </span><span class="n">flagtoggle_clk1</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">11</span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk1</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">flagin_clk1</span><span class="p">)</span>
+<span class="linenos">12</span><span class="w">     </span><span class="n">flagtoggle_clk1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="o">~</span><span class="n">flagtoggle_clk1</span><span class="p">;</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1">// Step 2: cross clock domains</span>
+<span class="linenos">15</span><span class="kt">wire</span><span class="w"> </span><span class="n">sync1_clk2</span><span class="p">;</span>
+<span class="linenos">16</span><span class="n">reg_tech_cdc</span><span class="w"> </span><span class="n">flagtoggle_cdc</span><span class="p">(.</span><span class="n">I</span><span class="p">(</span><span class="n">flagtoggle_clk1</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="n">clk2</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">O</span><span class="p">(</span><span class="n">sync1_clk2</span><span class="p">));</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1">// Step 3: detect transitions</span>
+<span class="linenos">19</span><span class="kt">reg</span><span class="w"> </span><span class="n">sync2_clk2</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">20</span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk2</span><span class="p">)</span><span class="w"> </span><span class="n">sync2_clk2</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">sync1_clk2</span><span class="p">;</span>
+<span class="linenos">21</span><span class="k">assign</span><span class="w"> </span><span class="n">flagout_clk2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sync2_clk2</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">sync1_clk2</span><span class="p">;</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="c1">// Step 4: (simulation-only) complain if this module is abused</span>
+<span class="linenos">24</span><span class="c1">// Too many people wire data_xdomain&#39;s .gate_in(1&#39;b1) without understanding</span>
+<span class="linenos">25</span><span class="c1">// how the logic is supposed to work.</span>
+<span class="linenos">26</span><span class="no">`ifdef</span><span class="w"> </span><span class="n">SIMULATE</span>
+<span class="linenos">27</span><span class="kt">reg</span><span class="w"> </span><span class="n">old_flagin</span><span class="o">=</span><span class="mh">0</span><span class="p">,</span><span class="w"> </span><span class="n">warning_sent</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">28</span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos">29</span><span class="w">     </span><span class="n">old_flagin</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">flagin_clk1</span><span class="p">;</span>
+<span class="linenos">30</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">flagin_clk1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">old_flagin</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">warning_sent</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos">31</span><span class="w">             </span><span class="c1">// Don&#39;t actually crash, at least not for now.</span>
+<span class="linenos">32</span><span class="w">             </span><span class="nb">$display</span><span class="p">(</span><span class="s">&quot;XXXX  Warning: flag_xdomain module abuse in %m  XXXX&quot;</span><span class="p">);</span>
+<span class="linenos">33</span><span class="w">             </span><span class="n">warning_sent</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">     </span><span class="k">end</span>
+<span class="linenos">35</span><span class="k">end</span>
+<span class="linenos">36</span><span class="no">`endif</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span><span class="k">endmodule</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, LBNL ATG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

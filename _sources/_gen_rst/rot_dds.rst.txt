@@ -1,0 +1,100 @@
+.. _rot_dds:
+
+rot_dds
+=======
+
+Description
+'''''''''''
+
+|  Phase Rotating Direct Digital Synthesis of sin/cos
+|  18 bit output coming from cordicg
+|  Note that phase_step_h and phase_step_l combined fit in a 32-bit word.
+|  This is intentional, to allow atomic updates of the two controls
+|  in 32-bit systems.  Indeed, when modulo==0, those 32 bits can be considered
+| 
+|  a simple fast binary DDS control for quirky (non-binary-rounding) phase
+|  steps like:
+|  7/33 for LCLS-II
+|  8/11 for SSRF
+|  9/13 for Argonne RIA
+| 
+|  Synthesizes to ??? slices at ??? MHz in XC3Sxxx-4 using XST-??
+| 
+| 
+| 
+
+Pinout
+''''''
+
+.. _fig:rot_dds_block:
+.. figure:: rot_dds_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: rot_dds_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - lo_amp
+     - ?
+     - ?
+     - 18
+     - 
+
+Ports
+'''''
+
+.. list-table:: rot_dds_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - timespec 9.0 ns
+   * - reset
+     - Input
+     - active high, synchronous with clk
+   * - sina[17:0]
+     - Output
+     - 
+   * - cosa[17:0]
+     - Output
+     - 
+   * - phase_step_h[19:0]
+     - Input
+     - 
+   * - phase_step_l[11:0]
+     - Input
+     - 
+   * - modulo[11:0]
+     - Input
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`rot_dds_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:rot_dds_timing:
+.. figure:: rot_dds_timing.png
+    :alt: Timing diagram
+

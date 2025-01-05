@@ -1,0 +1,95 @@
+.. _ssb_out:
+
+ssb_out
+=======
+
+Description
+'''''''''''
+
+|  SSB stands for Single Side Band.
+|  https://en.wikipedia.org/wiki/Single-sideband_modulation
+|  (Almost) pin compatible with second_if_out,
+|  but this one relies on interpolators (afterburner) to up-sample the output
+|  data to DDR so it can drive a double-frequency DAC.
+| 
+|  It nominally produces an I and Q drive output but single-drive usage is possible
+|  by simply leaving dac2_out{0,1} floating, letting the synthesizer optimize-away
+|  the redundant code.
+| 
+|  Directly uses the provided LO (cosa,sina), thus output IF will be determined by
+|  the LO frequency
+| 
+
+Pinout
+''''''
+
+.. _fig:ssb_out_block:
+.. figure:: ssb_out_block.png
+    :alt: Schematic symbol
+
+Ports
+'''''
+
+.. list-table:: ssb_out_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - div_state[1:0]
+     - Input
+     - div_state [0] I-Q signal
+   * - drive[17:0]
+     - Input
+     - Baseband interleaved I-Q
+   * - enable
+     - Input
+     - Set output on enable else 0
+   * - ssb_flip
+     - Input
+     - Flips sign of dac2_out output pair
+   * - aftb_coeff[15:0]
+     - Input
+     - Coefficient to correct for the linear interpolation between
+   * - cosa[17:0]
+     - Input
+     - 
+   * - sina[17:0]
+     - Input
+     - 
+   * - dac1_out0[15:0]
+     - Output
+     - Nominally in-phase component
+   * - dac1_out1[15:0]
+     - Output
+     - 
+   * - dac2_out0[15:0]
+     - Output
+     - Nominally quadrature component
+   * - dac2_out1[15:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`ssb_out_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:ssb_out_timing:
+.. figure:: ssb_out_timing.png
+    :alt: Timing diagram
+

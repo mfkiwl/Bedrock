@@ -1,0 +1,59 @@
+.. _iq_intrp4:
+
+iq_intrp4
+=========
+
+Description
+'''''''''''
+
+| 
+|  Pull apart and interpolate a four-way interpolated IQ stream
+|  into its individual components
+
+Pinout
+''''''
+
+.. _fig:iq_intrp4_block:
+.. figure:: iq_intrp4_block.png
+    :alt: Schematic symbol
+
+Ports
+'''''
+
+.. list-table:: iq_intrp4_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - sync
+     - Input
+     - 
+   * - in[21:0]
+     - Input
+     - 
+   * - out1[17:0]
+     - Output
+     - 
+   * - out2[17:0]
+     - Output
+     - 
+   * - out3[17:0]
+     - Output
+     - 
+   * - out4[17:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`iq_intrp4_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

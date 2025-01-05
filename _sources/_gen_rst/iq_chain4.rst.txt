@@ -1,0 +1,73 @@
+.. _iq_chain4:
+
+iq_chain4
+=========
+
+Description
+'''''''''''
+
+| 
+|  Filters and decimates four I-Q multiplexed data streams
+|  down to a single data path
+|  Uses second-order CIC filtering.
+|  Larry Doolittle, LBNL, 2014
+| 
+
+Pinout
+''''''
+
+.. _fig:iq_chain4_block:
+.. figure:: iq_chain4_block.png
+    :alt: Schematic symbol
+
+Ports
+'''''
+
+.. list-table:: iq_chain4_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - sync
+     - Input
+     - 
+   * - in1[17:0]
+     - Input
+     - 
+   * - in2[17:0]
+     - Input
+     - 
+   * - in3[17:0]
+     - Input
+     - 
+   * - in4[17:0]
+     - Input
+     - 
+   * - out[21:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`iq_chain4_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:iq_chain4_timing:
+.. figure:: iq_chain4_timing.png
+    :alt: Timing diagram
+

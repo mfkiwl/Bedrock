@@ -1,0 +1,82 @@
+.. _data_xdomain:
+
+data_xdomain
+============
+
+Description
+'''''''''''
+
+|  clk_out must be more than twice as fast as the gate_in rate.
+
+Pinout
+''''''
+
+.. _fig:data_xdomain_block:
+.. figure:: data_xdomain_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: data_xdomain_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - size
+     - ?
+     - ?
+     - 16
+     - 
+
+Ports
+'''''
+
+.. list-table:: data_xdomain_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk_in
+     - Input
+     - 
+   * - gate_in
+     - Input
+     - 
+   * - data_in[size-1:0]
+     - Input
+     - 
+   * - clk_out
+     - Input
+     - 
+   * - gate_out
+     - Output
+     - 
+   * - data_out[size-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`data_xdomain_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:data_xdomain_timing:
+.. figure:: data_xdomain_timing.png
+    :alt: Timing diagram
+

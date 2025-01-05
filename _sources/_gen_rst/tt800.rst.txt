@@ -1,0 +1,68 @@
+.. _tt800:
+
+tt800
+=====
+
+Description
+'''''''''''
+
+| 
+|  A synthesizable Verilog program for TT800
+|  Adapted from Twisted GFSR Generators II
+|  Makoto Matsumoto and Yoshiharu Kurita
+|  December 2, 1992
+|  http://www.math.sci.hiroshima-u.ac.jp/~m-mat/eindex.html
+| 
+
+Pinout
+''''''
+
+.. _fig:tt800_block:
+.. figure:: tt800_block.png
+    :alt: Schematic symbol
+
+Ports
+'''''
+
+.. list-table:: tt800_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - timespec 3.0 ns
+   * - en
+     - Input
+     - 
+   * - init
+     - Input
+     - 
+   * - initv[31:0]
+     - Input
+     - 
+   * - y[31:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`tt800_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:tt800_timing:
+.. figure:: tt800_timing.png
+    :alt: Timing diagram
+

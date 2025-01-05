@@ -1,0 +1,71 @@
+.. _minmax:
+
+minmax
+======
+
+Description
+'''''''''''
+
+| 
+|  Simple always-on minmax finder, designed to be applied to ADC inputs.
+|  reset is single-cycle, designed such that you can capture the outputs
+|  on the same cycle as you apply the reset, resulting in no blind cycles.
+
+Pinout
+''''''
+
+.. _fig:minmax_block:
+.. figure:: minmax_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: minmax_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - width
+     - ?
+     - ?
+     - 14
+     - 
+
+Ports
+'''''
+
+.. list-table:: minmax_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - xin[width-1:0]
+     - Input
+     - 
+   * - reset
+     - Input
+     - 
+   * - xmin[width-1:0]
+     - Output
+     - 
+   * - xmax[width-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`minmax_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

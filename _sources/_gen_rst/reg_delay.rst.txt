@@ -1,0 +1,75 @@
+.. _reg_delay:
+
+reg_delay
+=========
+
+Description
+'''''''''''
+
+| 
+|  Encapsulation of a register delay, z^{-n} in DSP-speak
+|  Properly handles odd-ball special cases like len==0
+
+Pinout
+''''''
+
+.. _fig:reg_delay_block:
+.. figure:: reg_delay_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: reg_delay_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - dw
+     - ?
+     - ?
+     - 16
+     - Width of data
+   * - len
+     - ?
+     - ?
+     - 4
+     - Cycles to delay
+
+Ports
+'''''
+
+.. list-table:: reg_delay_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - Rising edge clock input; all logic is synchronous in this domain
+   * - reset
+     - Input
+     - Please tie to 0 if you can; see below
+   * - gate
+     - Input
+     - Enable processing
+   * - din[dw-1:0]
+     - Input
+     - Input data
+   * - dout[dw-1:0]
+     - Output
+     - Output data
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`reg_delay_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

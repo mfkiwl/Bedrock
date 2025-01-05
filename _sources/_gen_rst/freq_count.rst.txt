@@ -1,0 +1,103 @@
+.. _freq_count:
+
+freq_count
+==========
+
+Description
+'''''''''''
+
+|  Synthesizes to 86 slices at 312 MHz in XC3Sxxx-4 using XST-8.2i
+|   (well, that's just the unknown frequency input; max sysclk is 132 MHz)
+| 
+| 
+
+Pinout
+''''''
+
+.. _fig:freq_count_block:
+.. figure:: freq_count_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: freq_count_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - glitch_thresh
+     - ?
+     - ?
+     - 2
+     - 
+   * - refcnt_width
+     - ?
+     - ?
+     - 24
+     - 
+   * - freq_width
+     - ?
+     - ?
+     - 28
+     - 
+   * - initv
+     - ?
+     - ?
+     - 0
+     - 
+
+Ports
+'''''
+
+.. list-table:: freq_count_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - sysclk
+     - Input
+     - timespec 8.0 ns
+   * - f_in
+     - Input
+     - unknown input
+   * - frequency[freq_width-1:0]
+     - Output
+     - 
+   * - freq_strobe
+     - Output
+     - 
+   * - diff_stream[15:0]
+     - Output
+     - stream of last 4 4-bit counts of f_in
+   * - diff_stream_strobe
+     - Output
+     - strobe at f_sysclk/4
+   * - glitch_catcher
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`freq_count_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:freq_count_timing:
+.. figure:: freq_count_timing.png
+    :alt: Timing diagram
+

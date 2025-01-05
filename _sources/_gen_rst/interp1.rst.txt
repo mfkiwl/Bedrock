@@ -1,0 +1,40 @@
+.. _interp1:
+
+interp1
+=======
+
+Pinout
+''''''
+
+.. _fig:interp1_block:
+.. figure:: interp1_block.png
+    :alt: Schematic symbol
+
+Ports
+'''''
+
+.. list-table:: interp1_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - x[17:0]
+     - Input
+     - 
+   * - y[15:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`interp1_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+

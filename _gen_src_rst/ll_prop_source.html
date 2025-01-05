@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ll_prop Source File &mdash; Bedrock  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Bedrock
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general-docs.html">General Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bedrock-modules.html">Bedrock Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rtsim-module.html">RTSIM Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dsp-digaree-module.html">DSP Digaree Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bedrock</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ll_prop Source File</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_gen_src_rst/ll_prop_source.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This documentation is a work in progress.
+Expect to see errors and unfinished things.</p>
+</div>
+<section id="ll-prop-source-file">
+<span id="ll-prop-source"></span><h1>ll_prop Source File<a class="headerlink" href="#ll-prop-source-file" title="Permalink to this heading"></a></h1>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="no">`timescale</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1">// Keep the interface to this module simple:</span>
+<span class="linenos"> 4</span><span class="c1">//  all IQ inputs and outputs are co-phased,</span>
+<span class="linenos"> 5</span><span class="c1">//  i.e., I values when iq is high, Q values when iq is low.</span>
+<span class="linenos"> 6</span><span class="k">module</span><span class="w"> </span><span class="n">ll_prop</span><span class="p">(</span>
+<span class="linenos"> 7</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="n">iq</span><span class="p">,</span>
+<span class="linenos"> 9</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">in_iq</span><span class="p">,</span>
+<span class="linenos">10</span><span class="w">     </span><span class="k">output</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_iq</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">coarse_scale</span><span class="p">,</span><span class="w">  </span><span class="c1">// max gain 8, 64, 512, 4096</span>
+<span class="linenos">12</span><span class="w">     </span><span class="c1">// slowly varying control inputs, also IQ multiplexed</span>
+<span class="linenos">13</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">set_iq</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">gain_iq</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">     </span><span class="k">input</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">drive_iq</span>
+<span class="linenos">16</span><span class="p">);</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="cp">`define SAT(x,old,new) ((~|x[old:new] | &amp;x[old:new]) ? x[new:0] : {x[old],{new{~x[old]}}})</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">18</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">err_iq</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">21</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">22</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">err_iq_s</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">22</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">err_iq_lim</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">23</span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos">24</span><span class="w">     </span><span class="n">err_iq</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">in_iq</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">set_iq</span><span class="p">;</span>
+<span class="linenos">25</span><span class="w">     </span><span class="n">err_iq_s</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">coarse_scale</span><span class="p">[</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">err_iq</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mh">4</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="n">err_iq</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mh">1</span><span class="p">);</span>
+<span class="linenos">26</span><span class="w">     </span><span class="n">err_iq_lim</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="no">`SAT</span><span class="p">(</span><span class="n">err_iq_s</span><span class="p">,</span><span class="mh">22</span><span class="p">,</span><span class="mh">17</span><span class="p">);</span>
+<span class="linenos">27</span><span class="k">end</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="kt">wire</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">prod_iq</span><span class="p">;</span>
+<span class="linenos">30</span><span class="n">complex_mul</span><span class="w"> </span><span class="n">mul</span><span class="p">(.</span><span class="n">clk</span><span class="p">(</span><span class="n">clk</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">gate_in</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">iq</span><span class="p">(</span><span class="n">iq</span><span class="p">),</span>
+<span class="linenos">31</span><span class="w">     </span><span class="p">.</span><span class="n">x</span><span class="p">(</span><span class="n">err_iq_lim</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">y</span><span class="p">(</span><span class="n">gain_iq</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">z</span><span class="p">(</span><span class="n">prod_iq</span><span class="p">));</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">25</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">prod_iq_s</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">34</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">14</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">prod_iq_lim</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// max contribution 1/8 of full scale</span>
+<span class="linenos">35</span><span class="c1">// add circular and/or configurable limit?</span>
+<span class="linenos">36</span><span class="c1">// add peak/rms error monitoring?</span>
+<span class="linenos">37</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">18</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum_iq</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">38</span><span class="kt">reg</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum_iq_s</span><span class="o">=</span><span class="mh">0</span><span class="p">;</span>
+<span class="linenos">39</span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="linenos">40</span><span class="w">     </span><span class="n">prod_iq_s</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">coarse_scale</span><span class="p">[</span><span class="mh">1</span><span class="p">]</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">prod_iq</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mh">8</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="n">prod_iq</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mh">2</span><span class="p">);</span>
+<span class="linenos">41</span><span class="w">     </span><span class="n">prod_iq_lim</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="no">`SAT</span><span class="p">(</span><span class="n">prod_iq_s</span><span class="p">,</span><span class="mh">25</span><span class="p">,</span><span class="mh">14</span><span class="p">);</span>
+<span class="linenos">42</span><span class="w">     </span><span class="n">sum_iq</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">prod_iq_lim</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">drive_iq</span><span class="p">;</span>
+<span class="linenos">43</span><span class="w">     </span><span class="n">sum_iq_s</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="no">`SAT</span><span class="p">(</span><span class="n">sum_iq</span><span class="p">,</span><span class="mh">18</span><span class="p">,</span><span class="mh">17</span><span class="p">);</span>
+<span class="linenos">44</span><span class="k">end</span>
+<span class="linenos">45</span><span class="no">`undef</span><span class="w"> </span><span class="n">SAT</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="k">assign</span><span class="w"> </span><span class="n">out_iq</span><span class="o">=</span><span class="n">sum_iq_s</span><span class="p">;</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="k">endmodule</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, LBNL ATG.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

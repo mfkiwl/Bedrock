@@ -1,0 +1,112 @@
+.. _multiply_accumulate:
+
+multiply_accumulate
+===================
+
+Description
+'''''''''''
+
+| 
+|  TL;DR
+|  accumulated += ((constant * signal) >>> downscale) + correction
+| 
+|  Multiply a `constant` K to input `signal` and accumulate the result on `enable`.
+| 
+|  Notice `downscale`, this is meant to downscale the input into the accumulator
+|  Useful in times of high "natural" integration gain: like running with a superconducting cavity
+| 
+|  `correction` comes from some externally-supplied feedforward, maybe derived from the previous pulse
+
+Pinout
+''''''
+
+.. _fig:multiply_accumulate_block:
+.. figure:: multiply_accumulate_block.png
+    :alt: Schematic symbol
+
+Parameters
+''''''''''
+
+.. list-table:: multiply_accumulate_param_table
+   :header-rows: 1
+
+   * - Name
+     - Min
+     - Max
+     - Default
+     - Description
+   * - CW
+     - ?
+     - ?
+     - 17
+     - 
+   * - KW
+     - ?
+     - ?
+     - 18
+     - Constant Width
+   * - SW
+     - ?
+     - ?
+     - 18
+     - Signal Width
+   * - OW
+     - ?
+     - ?
+     - 21
+     - OutputWidth: Desired bitwidth of the accumulator
+
+Ports
+'''''
+
+.. list-table:: multiply_accumulate_port_table
+   :header-rows: 1
+
+   * - Signal
+     - Direction
+     - Description
+   * - clk
+     - Input
+     - 
+   * - reset
+     - Input
+     - 
+   * - enable
+     - Input
+     - 
+   * - correction[CW-1:0]
+     - Input
+     - 
+   * - downscale[3:0]
+     - Input
+     - 
+   * - constant[KW-1:0]
+     - Input
+     - 
+   * - signal[SW-1:0]
+     - Input
+     - 
+   * - accumulated[OW-1:0]
+     - Output
+     - 
+
+Implementation and use
+''''''''''''''''''''''
+
+The `portable`_ `Verilog`_
+implementation can be found in :ref:`multiply_accumulate_source`
+
+.. _`portable`: https://en.wikipedia.org/wiki/Software_portability
+.. _`Verilog`: https://en.wikipedia.org/wiki/Verilog
+
+Timing Diagram
+''''''''''''''
+
+A `GTKWave`_-generated timing diagram is shown below:
+
+.. _`GTKWave`: https://gtkwave.sourceforge.net/
+
+.. _fig:multiply_accumulate_timing:
+.. figure:: multiply_accumulate_timing.png
+    :alt: Timing diagram
+
